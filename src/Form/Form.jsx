@@ -1,3 +1,8 @@
+import React, { useState, useCallback } from "react";
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import * as actions from '../store/actions/index';
 import React, { useState } from "react";
 import { BrowserRouter as Router, useLocation } from "react-router-dom";
 
@@ -79,7 +84,7 @@ export default function Form({ children }) {
       .post("https://querybackendapi.herokuapp.com/api/account/", userData)
       .then((response) => {
         console.log(response);
-        window.location = "/home";
+        // window.location = "/home";
       })
       .catch((error) => {
         alert("we could'nt find any account with those credentials");
@@ -87,6 +92,7 @@ export default function Form({ children }) {
       });
     reset();
   };
+
 
   const checkUsername = (username) => {
     console.log(username.target.value);
@@ -115,6 +121,26 @@ export default function Form({ children }) {
       setPasswordBorderColor("red");
     } else setPasswordBorderColor("green");
   };
+
+
+  const stateToProps = useSelector((state) => {
+    return {
+      loading:state.auth.loading,
+      error:state.auth.error,
+      isAuthenticated:state.auth.token !== null,
+      authRedirectPath: state.auth.authRedirectPath
+    }
+  })
+
+  const dispatch = useDispatch()
+
+  const dispatchToProps = useCallback(dispatch => {
+    return {
+        onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup )),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+    };
+  },[dispatch])
+
 
   return (
     <div className="FormStyle">
@@ -214,3 +240,4 @@ export default function Form({ children }) {
     </div>
   );
 }
+

@@ -28,8 +28,16 @@
 }
 // <i class={`fas ${!errors.username ? "fa-check" : "fa-times"}`}></i>
 
+
 // const [showMark, setShowMark] = useState({
 //   usernameCheck: null,
 //   emailChecked: null,
 //   passwordChecked: null,
 // });
+
+
+h2 {
+  background: orange;
+
+}
+
