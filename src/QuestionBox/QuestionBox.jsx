@@ -14,7 +14,8 @@ export default function QuestionBox({
   onClick,
   userQuestion,
   onClickFunc,
-  linkToWhere
+  linkToWhere,
+  id,
 }) {
   const modes = useSelector((state) => state.modes);
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export default function QuestionBox({
   console.log(location.pathname, "from");
   return (
     <div
+      id={id}
       className="QuestionBoxStyle"
       onClick={onClick}
       style={{

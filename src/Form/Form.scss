@@ -67,26 +67,34 @@
         letter-spacing: 0rem;
       }
     }
-  }
 
-  .Form input {
-    transition: width 400ms cubic-bezier(0.82, 0.16, 0.56, 0.44);
-    margin: 1rem auto;
-    height: 2rem;
+    & input {
+      transition: width 400ms cubic-bezier(0.82, 0.16, 0.56, 0.44);
+      margin: 0.5rem auto;
+      height: 2rem;
     background: white;
-    width: 60%;
-    border: 0.1rem solid $borderWhiteModeColor;
-    border-radius: 0.5rem;
-    padding: 0rem 2rem;
-    outline: none !important;
-    display: block;
+      width: 60%;
+      border: 0.1rem solid $borderWhiteModeColor;
+      border-radius: 0.5rem;
+      padding: 0rem 2rem;
+      outline: none !important;
+      display: block;
 
-    &::placeholder {
-      font-weight: 300;
+      &::placeholder {
+        font-weight: 300;
+      }
+      &:focus {
+        border-color: white;
+      }
+      @media (min-width: $laptop) {
+        width: 45%;
+      }
     }
-
-    @media (min-width: $laptop) {
-      width: 45%;
+    & label {
+      color: $darkRed;
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
     }
   }
 
@@ -100,4 +108,8 @@
     color: $loginColor;
     text-decoration: none;
   }
+}
+
+.fa-arrow-circle-right {
+  margin-left: 0.4rem;
 }
