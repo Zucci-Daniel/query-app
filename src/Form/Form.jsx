@@ -1,5 +1,13 @@
+<<<<<<< HEAD
+import React, { useState, useCallback } from "react";
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import * as actions from '../store/actions/index';
+=======
 import React, { useState } from "react";
 import { BrowserRouter as Router, useLocation } from "react-router-dom";
+>>>>>>> 3b8a904f6b3f8b4418d888849f2f108c0f675259
 
 import "./Form.scss";
 import Button from "../Button/Button";
@@ -76,12 +84,33 @@ export default function Form({ children }) {
       .post("https://querybackendapi.herokuapp.com/api/account/", userData)
       .then((response) => {
         console.log(response);
-        window.location = "/home";
+        // window.location = "/home";
       })
       .catch((error) => console.log(error));
     reset();
   };
 
+<<<<<<< HEAD
+  const stateToProps = useSelector((state) => {
+    return {
+      loading:state.auth.loading,
+      error:state.auth.error,
+      isAuthenticated:state.auth.token !== null,
+      authRedirectPath: state.auth.authRedirectPath
+    }
+  })
+
+  const dispatch = useDispatch()
+
+  const dispatchToProps = useCallback(dispatch => {
+    return {
+        onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup )),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+    };
+  },[dispatch])
+
+=======
+>>>>>>> 3b8a904f6b3f8b4418d888849f2f108c0f675259
   return (
     <div className="FormStyle">
       <ul className="nav nav-tabs">
@@ -169,3 +198,12 @@ export default function Form({ children }) {
     </div>
   );
 }
+<<<<<<< HEAD
+
+
+
+
+
+
+=======
+>>>>>>> 3b8a904f6b3f8b4418d888849f2f108c0f675259
