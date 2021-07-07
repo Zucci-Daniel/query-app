@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./HOME_PAGE.scss";
 import QuestionBox from "../../QuestionBox/QuestionBox";
@@ -22,6 +22,8 @@ import QuestionSkeletonLoader from "../../SKELETONS/QuestionSkeletonLoader/Quest
 import axios from "axios";
 
 export default function HOME_PAGE() {
+  const [recentlyAskedQuestions, setRecentlyAskedQuestions] = useState([]);
+
   useEffect(() => {}, []);
 
   const modes = useSelector((state) => state.modes);
@@ -35,18 +37,18 @@ export default function HOME_PAGE() {
   };
 
   useEffect(() => {
-    const formData = {
-      username: 'kristopher',
-      password: 'kristopher',
-    };
-
     axios
-      .get("https://querybackendapi.herokuapp.com/api/profiles/5", formData)
-      .then((response) => console.log(response, "the logged in user details"))
+      .get("https://querybackendapi.herokuapp.com/api/question/")
+      .then((response) => {
+        console.log(response.data.count, "the logged in user details");
+        setRecentlyAskedQuestions([response.data.results]);
+      })
       .catch((error) => {
         console.log("wrong syntax");
       });
   }, []);
+
+  console.log(recentlyAskedQuestions, "this is the state now");
 
   return (
     <div
@@ -63,52 +65,72 @@ export default function HOME_PAGE() {
         <span style={{ color: `${modes.themeColors.color}` }}>Home</span>
       </CurrentPageIdentifier>
       <div className="questionHolder">
-        <QuestionBox
-          linkToWhere="/getpost"
-          specialQuestionStyle={specialQuestionStyle}
-          userImage={user7}
-          whoAskedThisQuestion="Danny Goere"
-          description="Designer"
-          userQuestion="Question i dont feel like asking any question, just show
-          me the way out of here !!"
-        >
-          <DetailsButtons>
-            <Like />
-            <AnswerButton />
-            <Date />
-          </DetailsButtons>
-        </QuestionBox>
-
-        <QuestionBox
-          linkToWhere="/getpost"
-          specialQuestionStyle={specialQuestionStyle}
-          userImage={user8}
-          whoAskedThisQuestion="Thomas mark"
-          description="Plumber"
-          userQuestion="What is the meaning of aristotle"
-        >
-          <DetailsButtons>
-            <Like />
-            <AnswerButton />
-            <Date />
-          </DetailsButtons>
-        </QuestionBox>
-
-        <QuestionBox
-          linkToWhere="/getpost"
-          specialQuestionStyle={specialQuestionStyle}
-          userImage={user5}
-          whoAskedThisQuestion="Rhieo Sisy"
-          description="Plumber"
-          userQuestion="What is the term 'EDUCATION' all about? "
-        >
-          <DetailsButtons>
-            <Like />
-            <AnswerButton />
-            <Date />
-          </DetailsButtons>
-        </QuestionBox>
+        {recentlyAskedQuestions.length === 0 ? (
+          <React.Fragment>
+            <QuestionSkeletonLoader />
+            <QuestionSkeletonLoader />
+          </React.Fragment>
+        ) : (
+          recentlyAskedQuestions.map((recentlyAskedQuestion) => {
+            return recentlyAskedQuestions.map((diffUserQuestions, index) => {
+              return diffUserQuestions.map((userQuestion) => {
+                console.log(
+                  userQuestion.profile.map((pro) => {
+                    console.log(pro.image, "fish");
+                  })
+                );
+                return (
+                  <QuestionBox
+                    id={userQuestion.id}
+                    linkToWhere="/getpost"
+                    specialQuestionStyle={specialQuestionStyle}
+                    userImage={userQuestion.profile.map((pro) => {
+                      return pro.image;
+                    })}
+                    whoAskedThisQuestion={userQuestion.profile.map((pro) => {
+                      return pro.user.username;
+                    })}
+                    description="Plumber"
+                    userQuestion={userQuestion.question}
+                  >
+                    <DetailsButtons>
+                      <Like />
+                      <AnswerButton />
+                      <Date />
+                    </DetailsButtons>
+                  </QuestionBox>
+                );
+              });
+            });
+          })
+        )}
       </div>
     </div>
   );
+}
+
+/*
+{recentlyAskedQuestions.length === 0
+          ? "pls wait"
+          : console.log(
+              recentlyAskedQuestions.map((question,index) => question.results.map((result,index)=>result.question)),
+              "lol"
+            )}
+ */
+
+{
+  /* <QuestionBox
+linkToWhere="/getpost"
+specialQuestionStyle={specialQuestionStyle}
+userImage={user5}
+whoAskedThisQuestion='me'
+description="Plumber"
+userQuestion="What is the term 'EDUCATION' all about? "
+>
+<DetailsButtons>
+  <Like />
+  <AnswerButton />
+  <Date />
+</DetailsButtons>
+</QuestionBox> */
 }

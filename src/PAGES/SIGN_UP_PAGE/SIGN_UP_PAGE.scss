@@ -26,8 +26,10 @@
     font-weight: 300;
   }
 }
+// <i class={`fas ${!errors.username ? "fa-check" : "fa-times"}`}></i>
 
-h2 {
-  background: orange;
-
-}
+// const [showMark, setShowMark] = useState({
+//   usernameCheck: null,
+//   emailChecked: null,
+//   passwordChecked: null,
+// });
