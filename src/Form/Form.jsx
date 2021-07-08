@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import React, { useState, useCallback } from "react";
 import { BrowserRouter as Router, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as actions from '../store/actions/index';
+=======
+import React, { useState } from "react";
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
+>>>>>>> 3b8a904f6b3f8b4418d888849f2f108c0f675259
 
 import "./Form.scss";
 import Button from "../Button/Button";
@@ -85,6 +90,7 @@ export default function Form({ children }) {
     reset();
   };
 
+<<<<<<< HEAD
   const stateToProps = useSelector((state) => {
     return {
       loading:state.auth.loading,
@@ -103,6 +109,8 @@ export default function Form({ children }) {
     };
   },[dispatch])
 
+=======
+>>>>>>> 3b8a904f6b3f8b4418d888849f2f108c0f675259
   return (
     <div className="FormStyle">
       <ul className="nav nav-tabs">
@@ -190,9 +198,12 @@ export default function Form({ children }) {
     </div>
   );
 }
+<<<<<<< HEAD
 
 
 
 
 
 
+=======
+>>>>>>> 3b8a904f6b3f8b4418d888849f2f108c0f675259
