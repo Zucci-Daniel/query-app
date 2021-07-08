@@ -84,7 +84,7 @@ export default function Form({ children }) {
       .post("https://querybackendapi.herokuapp.com/api/account/", userData)
       .then((response) => {
         console.log(response);
-        window.location = "/home";
+        // window.location = "/home";
       })
       .catch((error) => console.log(error));
     reset();
