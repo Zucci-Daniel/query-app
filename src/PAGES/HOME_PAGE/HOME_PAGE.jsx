@@ -91,7 +91,7 @@ export default function HOME_PAGE() {
         </QuestionBox> */}
         {
           questionDataState.length >= 1 ?
-          <React.Fragment><QuestionSkeletonLoader/> <QuestionSkeletonLoader/><QuestionSkeletonLoader/><QuestionSkeletonLoader/><QuestionSkeletonLoader/></React.Fragment> :
+          <React.Fragment><QuestionSkeletonLoader/> <QuestionSkeletonLoader/><QuestionSkeletonLoader/><QuestionSkeletonLoader/><QuestionSkeletonLoader/><QuestionSkeletonLoader/></React.Fragment> :
           questionDataState.map((result) => 
               <QuestionBox
               key={result.id}
